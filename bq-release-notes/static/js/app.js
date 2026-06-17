@@ -1,5 +1,5 @@
 /* =========================================================
-   BigQuery Release Notes — Client-side logic
+   Noticias de IA y sus Aplicaciones — Client-side logic (Español)
    ========================================================= */
 
 const API = '/api/notes';
@@ -55,7 +55,7 @@ async function fetchNotes() {
     const res = await fetch(API);
     const data = await res.json();
 
-    if (!data.ok) throw new Error(data.error || 'Unknown error');
+    if (!data.ok) throw new Error(data.error || 'Error desconocido');
 
     allEntries = data.entries;
     metaCount.textContent = allEntries.length;
@@ -64,7 +64,7 @@ async function fetchNotes() {
     buildFilterChips();
     applyFilters();
     btnExport.disabled = false;
-    showToast(`Loaded ${allEntries.length} AI news articles`);
+    showToast(`Cargadas ${allEntries.length} noticias de IA`);
   } catch (err) {
     cardList.innerHTML = errorState(err.message);
   } finally {
@@ -84,7 +84,7 @@ function buildFilterChips() {
   });
 
   filterBar.innerHTML = '';
-  addChip(`All (${allEntries.length})`, 'all', activeFilter === 'all');
+  addChip(`Todas (${allEntries.length})`, 'all', activeFilter === 'all');
   
   Object.keys(cats).sort().forEach(c => {
     addChip(`${c} (${cats[c]})`, c, activeFilter === c);
@@ -150,7 +150,7 @@ function renderCards(entries) {
 
     const isLong = entry.summary_plain && entry.summary_plain.length > 180;
     const expandBtnHTML = isLong 
-      ? `<button class="btn-toggle-expand" onclick="toggleCardExpand(this)" type="button">Show More</button>` 
+      ? `<button class="btn-toggle-expand" onclick="toggleCardExpand(this)" type="button">Mostrar más</button>` 
       : '';
 
     return `
@@ -164,13 +164,13 @@ function renderCards(entries) {
         <div class="card__footer">
           <div class="card__categories">${badgesHTML}</div>
           <div class="card__actions">
-            <button class="btn-copy" onclick="copyCard(this, ${i})" type="button" title="Copy to clipboard">
+            <button class="btn-copy" onclick="copyCard(this, ${i})" type="button" title="Copiar al portapapeles">
               <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              Copy
+              Copiar
             </button>
-            <a class="btn-tweet" href="${tweetURL}" target="_blank" rel="noopener" title="Tweet about this update">
+            <a class="btn-tweet" href="${tweetURL}" target="_blank" rel="noopener" title="Tuitear sobre esta noticia">
               <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              Tweet
+              Tuitear
             </a>
           </div>
         </div>
@@ -184,7 +184,7 @@ function toggleCardExpand(btn) {
   const card = btn.closest('.card');
   const body = card.querySelector('.card__body');
   const isExpanded = body.classList.toggle('card__body--expanded');
-  btn.textContent = isExpanded ? 'Show Less' : 'Show More';
+  btn.textContent = isExpanded ? 'Mostrar menos' : 'Mostrar más';
 }
 
 // ---------- Copy to Clipboard -----------------------------------------------
@@ -199,16 +199,16 @@ function copyCard(btn, index) {
   navigator.clipboard.writeText(text).then(() => {
     // Visual feedback
     const originalHTML = btn.innerHTML;
-    btn.innerHTML = '✓ Copied!';
+    btn.innerHTML = '✓ ¡Copiado!';
     btn.classList.add('btn-copy--copied');
-    showToast('Copied to clipboard!');
+    showToast('¡Copiado al portapapeles!');
 
     setTimeout(() => {
       btn.innerHTML = originalHTML;
       btn.classList.remove('btn-copy--copied');
     }, 2000);
   }).catch(() => {
-    showToast('Failed to copy — try again');
+    showToast('Error al copiar, intente de nuevo');
   });
 }
 
@@ -217,11 +217,11 @@ function copyCard(btn, index) {
 function exportToCSV() {
   const entries = getVisibleEntries();
   if (!entries.length) {
-    showToast('No entries to export');
+    showToast('No hay noticias para exportar');
     return;
   }
 
-  const headers = ['Title', 'Published', 'Categories', 'Summary', 'Link'];
+  const headers = ['Titulo', 'Publicado', 'Categorias', 'Resumen', 'Enlace'];
   const rows = entries.map(e => [
     csvEscape(e.title),
     csvEscape(e.published),
@@ -236,14 +236,14 @@ function exportToCSV() {
 
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'bigquery-release-notes.csv';
+  a.download = 'noticias-ia-y-aplicaciones.csv';
   a.style.display = 'none';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  showToast(`Exported ${entries.length} entries to CSV`);
+  showToast(`Exportadas ${entries.length} noticias a CSV`);
 }
 
 function csvEscape(str) {
@@ -263,7 +263,7 @@ function buildTweetText(entry) {
   const plain = entry.summary_plain;
 
   // Compose under 280 chars: title + snippet + url + hashtag
-  const suffix = `\n\n${url}\n#AI #ArtificialIntelligence #TechNews`;
+  const suffix = `\n\n${url}\n#IA #InteligenciaArtificial #Noticias`;
   const budget = 280 - suffix.length - title.length - 5; // 5 for ": " and "…"
   const snippet = budget > 30 ? ': ' + plain.slice(0, budget) + '…' : '';
   return title + snippet + suffix;
@@ -273,9 +273,9 @@ function buildTweetText(entry) {
 
 function badgeClass(cat) {
   const lc = cat.toLowerCase();
-  if (lc.includes('model'))       return 'badge--feature';
-  if (lc.includes('application')) return 'badge--changed';
-  if (lc.includes('policy'))      return 'badge--fix';
+  if (lc.includes('modelo'))       return 'badge--feature';
+  if (lc.includes('aplicacion') || lc.includes('aplicación')) return 'badge--changed';
+  if (lc.includes('seguridad') || lc.includes('política') || lc.includes('politica')) return 'badge--fix';
   if (lc.includes('hardware'))    return 'badge--deprecated';
   return '';
 }
@@ -293,8 +293,8 @@ function emptyState() {
   return `
     <div class="state-box">
       <div class="state-box__icon">📭</div>
-      <div class="state-box__title">No entries found</div>
-      <div class="state-box__msg">Try resetting the filter or refreshing.</div>
+      <div class="state-box__title">No se encontraron noticias</div>
+      <div class="state-box__msg">Intente restablecer el filtro o actualizar.</div>
     </div>`;
 }
 
@@ -302,7 +302,7 @@ function errorState(msg) {
   return `
     <div class="state-box">
       <div class="state-box__icon">⚠️</div>
-      <div class="state-box__title">Failed to load release notes</div>
+      <div class="state-box__title">Error al cargar las noticias</div>
       <div class="state-box__msg">${esc(msg)}</div>
     </div>`;
 }

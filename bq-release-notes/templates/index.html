@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI News & Applications</title>
-  <meta name="description" content="Stay up to date with the latest Artificial Intelligence (AI) news, trends, and applications — browse, filter, and tweet about updates." />
+  <title>Noticias de IA y sus Aplicaciones</title>
+  <meta name="description" content="Mantente al día con las últimas noticias y aplicaciones de Inteligencia Artificial (IA): explora, filtra y tuitea sobre las novedades." />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='80'>🧠</text></svg>" />
 </head>
@@ -22,20 +22,20 @@
             <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 0-4.12 2.5 2.5 0 0 0 0-4.88A2.5 2.5 0 0 0 14.5 2z" />
           </svg>
         </div>
-        <h1 class="header__title">AI News & Applications</h1>
+        <h1 class="header__title">Noticias de IA y sus Aplicaciones</h1>
         <!-- Theme Toggle -->
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light/dark mode">
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema claro/oscuro">
           <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
           <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
         </button>
       </div>
-      <p class="header__sub">Browse the latest updates on Artificial Intelligence and its applications — and tweet about them.</p>
+      <p class="header__sub">Explora las últimas novedades sobre Inteligencia Artificial y sus aplicaciones — y tuitea sobre ellas.</p>
     </header>
 
     <!-- Toolbar -->
     <div class="toolbar">
       <div class="toolbar__meta">
-        <strong id="meta-count">—</strong> entries · Last refreshed <span id="meta-updated">—</span>
+        <strong id="meta-count">—</strong> noticias · Última actualización <span id="meta-updated">—</span>
       </div>
       <div class="toolbar__actions">
         <button id="btn-export" class="btn-export" type="button" disabled>
@@ -44,7 +44,7 @@
             <polyline points="7 10 12 15 17 10" />
             <line x1="12" y1="15" x2="12" y2="3" />
           </svg>
-          Export CSV
+          Exportar CSV
         </button>
         <button id="btn-refresh" class="btn-refresh" type="button">
           <svg class="btn-refresh__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -52,14 +52,14 @@
             <polyline points="1 20 1 14 7 14" />
             <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
           </svg>
-          Refresh
+          Actualizar
         </button>
       </div>
     </div>
 
     <!-- Search Bar -->
     <div class="search-container">
-      <input type="text" id="search-input" class="search-input" placeholder="Search release notes by keyword or title..." autocomplete="off" />
+      <input type="text" id="search-input" class="search-input" placeholder="Buscar noticias de IA por palabra clave o título..." autocomplete="off" />
       <span class="search-icon">🔍</span>
     </div>
 
