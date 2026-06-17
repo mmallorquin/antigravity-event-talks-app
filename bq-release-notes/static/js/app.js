@@ -64,7 +64,7 @@ async function fetchNotes() {
     buildFilterChips();
     applyFilters();
     btnExport.disabled = false;
-    showToast(`Loaded ${allEntries.length} release notes`);
+    showToast(`Loaded ${allEntries.length} AI news articles`);
   } catch (err) {
     cardList.innerHTML = errorState(err.message);
   } finally {
@@ -263,7 +263,7 @@ function buildTweetText(entry) {
   const plain = entry.summary_plain;
 
   // Compose under 280 chars: title + snippet + url + hashtag
-  const suffix = `\n\n${url}\n#BigQuery #GoogleCloud`;
+  const suffix = `\n\n${url}\n#AI #ArtificialIntelligence #TechNews`;
   const budget = 280 - suffix.length - title.length - 5; // 5 for ": " and "…"
   const snippet = budget > 30 ? ': ' + plain.slice(0, budget) + '…' : '';
   return title + snippet + suffix;
@@ -273,10 +273,10 @@ function buildTweetText(entry) {
 
 function badgeClass(cat) {
   const lc = cat.toLowerCase();
-  if (lc.includes('feature') || lc.includes('added'))       return 'badge--feature';
-  if (lc.includes('change') || lc.includes('update'))       return 'badge--changed';
-  if (lc.includes('fix') || lc.includes('issue') || lc.includes('bug')) return 'badge--fix';
-  if (lc.includes('deprecat') || lc.includes('breaking'))   return 'badge--deprecated';
+  if (lc.includes('model'))       return 'badge--feature';
+  if (lc.includes('application')) return 'badge--changed';
+  if (lc.includes('policy'))      return 'badge--fix';
+  if (lc.includes('hardware'))    return 'badge--deprecated';
   return '';
 }
 
