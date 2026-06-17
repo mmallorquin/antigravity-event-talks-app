@@ -10,8 +10,8 @@ from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
 
-# Fetch AI-related news in Spanish from Google News RSS
-FEED_URL = "https://news.google.com/rss/search?q=Inteligencia+Artificial&hl=es&gl=ES&ceid=ES:es"
+# Fetch global AI-related news in Spanish from Google News RSS
+FEED_URL = "https://news.google.com/rss/search?q=Inteligencia+Artificial&hl=es-419&gl=US&ceid=US:es-419"
 
 MONTHS_ES = {
     1: "enero", 2: "febrero", 3: "marzo", 4: "abril", 5: "mayo", 6: "junio",
