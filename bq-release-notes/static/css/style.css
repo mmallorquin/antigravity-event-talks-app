@@ -295,6 +295,33 @@ body::before {
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.card__body--expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.btn-toggle-expand {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--accent-light);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 0.85rem;
+  transition: var(--transition);
+}
+
+.btn-toggle-expand:hover {
+  color: var(--accent);
+  text-decoration: underline;
 }
 
 /* make inner HTML nicer */
@@ -445,10 +472,221 @@ body::before {
   pointer-events: auto;
 }
 
+/* ---------- Theme Toggle ---------- */
+.theme-toggle {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  box-shadow: var(--shadow-glow);
+  transform: scale(1.08);
+}
+
+.theme-toggle__icon {
+  font-size: 1.15rem;
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Dark mode (default): show sun, hide moon */
+.theme-toggle__icon--sun {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+.theme-toggle__icon--moon {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+/* Light mode: show moon, hide sun */
+[data-theme="light"] .theme-toggle__icon--sun {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+[data-theme="light"] .theme-toggle__icon--moon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+/* ---------- Light Mode Overrides ---------- */
+[data-theme="light"] {
+  --bg-primary:    #f0f4f8;
+  --bg-secondary:  #ffffff;
+  --bg-card:       #ffffff;
+  --bg-card-hover: #f5f7fa;
+  --bg-glass:      rgba(255, 255, 255, 0.75);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-glow:   rgba(66, 133, 244, 0.25);
+
+  --text-primary:  #1a1a2e;
+  --text-secondary:#4a4a6a;
+  --text-muted:    #8888a0;
+
+  --shadow-card:   0 2px 12px rgba(0, 0, 0, 0.06),
+                   0 1px 3px  rgba(0, 0, 0, 0.04);
+  --shadow-glow:   0 0 20px rgba(66, 133, 244, 0.08);
+}
+
+[data-theme="light"] body::before {
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 10%, rgba(66,133,244,0.05), transparent),
+    radial-gradient(ellipse 50% 60% at 80% 90%, rgba(52,211,153,0.04), transparent);
+}
+
+[data-theme="light"] .header__title {
+  background: linear-gradient(135deg, #1a1a2e 30%, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="light"] .card__title { color: #1a1a2e; }
+[data-theme="light"] .card__title a:hover { color: var(--accent); }
+
+/* ---------- Export CSV Button ---------- */
+.btn-export {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-md);
+  background: var(--accent-dim);
+  color: var(--accent-light);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-export:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-export:not(:disabled):hover {
+  background: rgba(66, 133, 244, 0.25);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
+.btn-export:active { transform: translateY(0); }
+
+.btn-export__icon {
+  width: 18px;
+  height: 18px;
+}
+
+.toolbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ---------- Copy Button ---------- */
+.btn-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: var(--radius-sm);
+  background: rgba(52, 211, 153, 0.08);
+  color: var(--success);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-copy:hover {
+  background: rgba(52, 211, 153, 0.18);
+  border-color: rgba(52, 211, 153, 0.5);
+  box-shadow: 0 0 16px rgba(52, 211, 153, 0.12);
+  transform: translateY(-1px);
+}
+
+.btn-copy:active { transform: translateY(0); }
+
+.btn-copy svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.btn-copy--copied {
+  border-color: var(--success);
+  background: rgba(52, 211, 153, 0.22);
+}
+
+/* ---------- Search Bar ---------- */
+.search-container {
+  position: relative;
+  margin-bottom: 1.25rem;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  transition: var(--transition);
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-glow);
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 600px) {
   .header__title { font-size: 1.35rem; }
   .card { padding: 1rem; }
   .card__top { flex-direction: column; gap: 0.25rem; }
   .toolbar { flex-direction: column; align-items: flex-start; }
+  .toolbar__actions { width: 100%; }
+  .btn-export, .btn-refresh { flex: 1; justify-content: center; }
+  .card__footer { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
 }
